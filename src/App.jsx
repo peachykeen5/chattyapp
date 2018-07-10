@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import MessageList from './MessageList.jsx';
 import ChatBar from './ChatBar.jsx';
 
+const shortid = require('shortid');
 
 class App extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class App extends Component {
   // }
 
   newMessage(content) { //renders new message onto app
-    const newMessage = {id: content.id, username: content.username, content: content};
+    const newMessage = {id: shortid.generate(), username: content.username, content: content.content};
     const messages = this.state.messages.concat(newMessage)
     this.setState({messages: messages})
   }

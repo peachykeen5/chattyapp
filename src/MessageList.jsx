@@ -8,9 +8,8 @@ export default class MessageList extends Component {
   render () {
   const messages = this.props.messages.map((message, index) => {
     return <Message 
-    key={ index }
-    user={ message.username }
-    content={ message.content } />
+    key= { index }
+    message= { message } />
   });
     return (<main className="messages">
         { messages }
