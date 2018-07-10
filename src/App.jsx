@@ -13,10 +13,12 @@ class App extends Component {
         {
           username: "Bob",
           content: "Has anyone seen my marbles?",
+          id: 1
         },
         {
           username: "Anonymous",
-          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
+          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
+          id: 2
         }
       ]
     }
@@ -27,8 +29,8 @@ class App extends Component {
         <nav className="navbar">
   <a href="/" className="navbar-brand">Chatty</a>
 </nav>
-  <MessageList/>
-  <ChatBar defaultValue={ this.props.currentUser }/>
+  <MessageList messages={ this.state.messages } />
+  <ChatBar currentUser={ this.state.currentUser }/>
 </div>
     );
   }

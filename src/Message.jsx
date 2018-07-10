@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
+
 export default function Message(props) {
     return (    
-    <div className="message">
-    <span className="message-username">Anonymous1</span>
-    <span className="message-content">I won't be impressed with technology until I can download food.</span>
+    <div className="message" id={props.id}>
+    <span className="message-username">{props.user}</span>
+    <span className="message-content">{props.content}</span>
   </div>);
 }
