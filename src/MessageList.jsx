@@ -1,15 +1,27 @@
 import React, {Component} from 'react';
 import Message from './Message.jsx';
 
+function Notification(props){
+  return (
+    <div className="notification">
+    <span className="notification-content" type={ props.message.type }>{props.message.username}</span>
+  </div>
+  )
+}
+
 export default class MessageList extends Component {
   constructor(props) {
     super(props);
   }
+
   render () {
-  const messages = this.props.messages.map((message, index) => {
-    return <Message 
-    key= { index }
-    message= { message } />
+  const messages = this.props.messages.map((message) => {
+    switch(message.type) {
+      case 'incomingNotification':
+      return <Notification message={message} key={message.id}/>;
+      default:
+      return <Message key={ message.id } message={ message } />
+    }
   });
     return (<main className="messages">
         { messages }

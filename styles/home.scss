@@ -33,10 +33,12 @@ body {
   line-height: 40px;
   margin: 5px;
   padding: 0 9px;
+  border-radius: 5px;
 }
 
 .chatbar-message {
   flex: 8;
+  border-radius: 5px;
 }
 
 .chatbar-username {
@@ -69,6 +71,14 @@ body {
   font-weight: 700;
 }
 
+.notification-content {
+  flex: 2;
+  padding: 0 10px;
+  margin: 5px;
+  font-style: italic;
+  color: darkgrey; 
+}
+
 .navbar {
   background: $color-primary;
   border-bottom: 1px solid black;
@@ -96,4 +106,10 @@ body {
   height: 50px;
   float: left;
   margin-top: 5px;
+}
+
+.usercount {
+  float: right;
+  line-height: 2.5;
+  margin: 8px;
 }
