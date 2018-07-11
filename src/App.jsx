@@ -24,6 +24,7 @@ class App extends Component {
       ]
     }
     this.newMessage = this.newMessage.bind(this)
+    this.newUser = this.newUser.bind(this);
   }
 
   // componentDidMount() {
@@ -37,19 +38,28 @@ class App extends Component {
   // }
 
   newMessage(content) { //renders new message onto app
-    const newMessage = {id: shortid.generate(), username: content.username, content: content.content};
+    const newMessage = {id: shortid.generate(), username: this.state.currentUser.name, content: content};
     const messages = this.state.messages.concat(newMessage)
-    this.setState({messages: messages})
+    this.setState({
+      messages: messages,
+    })
+  }
+  
+  newUser(user) {
+    this.setState({
+      currentUser: { name: user }
+    })
   }
   
   render() {
     return (
       <div>
         <nav className="navbar">
+        <img src="./images/chatty-icon.png"/>
   <a href="/" className="navbar-brand">Chatty</a>
 </nav>
   <MessageList messages={ this.state.messages } />
-  <ChatBar currentUser={ this.state.currentUser } newMessage={ this.newMessage }/>
+  <ChatBar currentUser={ this.state.currentUser } newMessage={ this.newMessage } newUser={this.newUser}/>
 </div>
     );
   }
