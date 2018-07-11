@@ -25,6 +25,7 @@ class App extends Component {
     }
     this.newMessage = this.newMessage.bind(this)
     this.newUser = this.newUser.bind(this);
+    this.socket = new WebSocket("ws://localhost:3001");
   }
 
   // componentDidMount() {
@@ -38,17 +39,27 @@ class App extends Component {
   // }
 
   newMessage(content) { //renders new message onto app
-    const newMessage = {id: shortid.generate(), username: this.state.currentUser.name, content: content};
-    const messages = this.state.messages.concat(newMessage)
-    this.setState({
-      messages: messages,
-    })
+    const newMessage = JSON.stringify({username: this.state.currentUser.name, content: content});
+    this.socket.send(newMessage)
   }
   
   newUser(user) {
     this.setState({
       currentUser: { name: user }
     })
+  }
+
+  componentDidMount() {
+    this.socket.onopen = (event) => {
+    console.log("server open")
+  }
+
+    this.socket.onmessage = (event) => {
+      let messages = this.state.messages.concat(JSON.parse(event.data))
+      this.setState({
+        messages: messages
+      })
+    }
   }
   
   render() {
