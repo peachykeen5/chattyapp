@@ -24,6 +24,9 @@ export default class ChatBar extends Component {
 
   onChangeUser(event) {
     event.preventDefault();
+    if (event.target.value === this.state.username) {
+      return;
+    }
     this.setState({
       username: event.target.value
     })

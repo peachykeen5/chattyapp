@@ -8,15 +8,8 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser:
-        { name: "", color: "" },
+        { name: ""},
       messages: [
-        // {
-          // username: "",
-          // content: "",
-          // id: '',
-          // type: '',
-          // color: ''
-        // }
       ]
     }
     this.newMessage = this.newMessage.bind(this)
@@ -24,18 +17,7 @@ class App extends Component {
     this.socket = new WebSocket("ws://localhost:3001");
   }
 
-  // componentDidMount() {
-  //   console.log("componentDidMount <App />");
-  //   setTimeout(() => {
-  //     console.log("Simulating incoming message");
-  //     // Add a new message to the list of messages in the data store
-  //     // Update the state of the app component.
-  //     // Calling setState will trigger a call to render() in App and all child components.
-  //   }, 1000);
-  // }
-
-
-  newMessage(content) { //renders new message onto app
+  newMessage(content) { 
     const newMessage = JSON.stringify({
       username: this.state.currentUser.name,
       content: content,
@@ -47,6 +29,9 @@ class App extends Component {
   newUser(user) {
     if (!this.state.currentUser.name) {
       this.state.currentUser.name = "Anonymous"
+    }
+    if (user === this.state.currentUser.name) {
+      return;
     }
     const newUser = JSON.stringify({
       username: user,
@@ -97,8 +82,10 @@ class App extends Component {
           <span className="usercount">{this.state.usercount} users online.</span>
 
         </nav>
+        <main className="container">
         <MessageList messages={this.state.messages}/>
         <ChatBar currentUser={this.state.currentUser} newMessage={this.newMessage} newUser={this.newUser} />
+        </main>
 
       </div>
     );
