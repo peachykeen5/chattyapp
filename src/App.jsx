@@ -3,13 +3,12 @@ import React, { Component } from 'react';
 import MessageList from './MessageList.jsx';
 import ChatBar from './ChatBar.jsx';
 
-const shortid = require('shortid');
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: { name: "Bob" },
+      currentUser:
+        { name: "Bob", color: "" },
       messages: [
         {
           username: "Bob",
@@ -38,6 +37,7 @@ class App extends Component {
   //   }, 1000);
   // }
 
+
   newMessage(content) { //renders new message onto app
     const newMessage = JSON.stringify({
       username: this.state.currentUser.name,
@@ -49,13 +49,15 @@ class App extends Component {
 
   newUser(user) {
     let content = this.state.currentUser.name + " has changed their name to " + user + "."
+    let randomColor = Math.floor(Math.random() * 16777215).toString(16);
     const newUser = JSON.stringify({
       username: content,
-      type: 'postNotification'
+      type: 'postNotification',
     })
-    this.setState({ currentUser: { name: user } })
+    this.setState({ currentUser: { name: user, color: "#" + randomColor } })
     this.socket.send(newUser)
   }
+
 
   componentDidMount() {
     this.socket.onopen = (event) => {
@@ -64,16 +66,21 @@ class App extends Component {
 
     this.socket.onmessage = (event) => {
       let data = JSON.parse(event.data)
-      if (data.type === "userCount") {
-        this.setState({ usercount: data.size })
+      if (data.type === "color") {
+        this.setState({ currentUser: { name: this.state.currentUser.name, color: data.color } })
       } else {
-        let messages = [...this.state.messages, data]
-        this.setState({
-          messages: messages
-        })
+        if (data.type === "userCount") {
+          this.setState({ usercount: data.size })
+        } else {
+          console.log(event.data)
+          let messages = [...this.state.messages, data]
+          this.setState({
+            messages: messages
+          })
+        }
       }
     }
-  }
+  } 
 
   render() {
     return (
@@ -84,7 +91,7 @@ class App extends Component {
           <span className="usercount">{this.state.usercount} users online.</span>
 
         </nav>
-        <MessageList messages={this.state.messages} />
+        <MessageList messages={this.state.messages} color={this.state.currentUser.color} />
         <ChatBar currentUser={this.state.currentUser} newMessage={this.newMessage} newUser={this.newUser} />
 
       </div>
