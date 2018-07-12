@@ -8,18 +8,15 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser:
-        { name: "Bob", color: "" },
+        { name: "", color: "" },
       messages: [
-        {
-          username: "Bob",
-          content: "Has anyone seen my marbles?",
-          id: 1
-        },
-        {
-          username: "Anonymous",
-          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
-          id: 2
-        }
+        // {
+          // username: "",
+          // content: "",
+          // id: '',
+          // type: '',
+          // color: ''
+        // }
       ]
     }
     this.newMessage = this.newMessage.bind(this)
@@ -48,13 +45,15 @@ class App extends Component {
   }
 
   newUser(user) {
-    let content = this.state.currentUser.name + " has changed their name to " + user + "."
-    let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    if (!this.state.currentUser.name) {
+      this.state.currentUser.name = "Anonymous"
+    }
     const newUser = JSON.stringify({
-      username: content,
+      username: user,
+      content: this.state.currentUser.name + " has changed their name to " + user + ".",
       type: 'postNotification',
     })
-    this.setState({ currentUser: { name: user, color: "#" + randomColor } })
+    this.setState({ currentUser: { name: user} })
     this.socket.send(newUser)
   }
 
@@ -66,18 +65,25 @@ class App extends Component {
 
     this.socket.onmessage = (event) => {
       let data = JSON.parse(event.data)
-      if (data.type === "color") {
-        this.setState({ currentUser: { name: this.state.currentUser.name, color: data.color } })
+      if (data.type === "incomingNotification") {
+        this.setState({
+          currentUser: {name: this.state.currentUser.name, id: data.id}, 
+          messages: [
+            ...this.state.messages, 
+            {
+              username: data.username, 
+              content: data.content, 
+              id: data.id, 
+              type: data.type, 
+            } 
+          ]
+        })
+      } else if (data.type === "userCount") {
+        this.setState({ usercount: data.size })
       } else {
-        if (data.type === "userCount") {
-          this.setState({ usercount: data.size })
-        } else {
-          console.log(event.data)
-          let messages = [...this.state.messages, data]
-          this.setState({
-            messages: messages
-          })
-        }
+        this.setState({
+          messages: [...this.state.messages, data]
+        })
       }
     }
   } 
@@ -91,7 +97,7 @@ class App extends Component {
           <span className="usercount">{this.state.usercount} users online.</span>
 
         </nav>
-        <MessageList messages={this.state.messages} color={this.state.currentUser.color} />
+        <MessageList messages={this.state.messages}/>
         <ChatBar currentUser={this.state.currentUser} newMessage={this.newMessage} newUser={this.newUser} />
 
       </div>

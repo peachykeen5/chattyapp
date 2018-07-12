@@ -25,9 +25,8 @@ export default class ChatBar extends Component {
   onChangeUser(event) {
     event.preventDefault();
     this.setState({
-      username: event.target.value,
+      username: event.target.value
     })
-
   }
 
   onKeyUpMessage(event) { //alters state 
