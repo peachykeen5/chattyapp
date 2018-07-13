@@ -31,6 +31,7 @@ class App extends Component {
       this.state.currentUser.name = "Anonymous"
     }
     if (user === this.state.currentUser.name) {
+      alert("Looks like that's already your name")
       return;
     }
     const newUser = JSON.stringify({

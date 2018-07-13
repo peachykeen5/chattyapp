@@ -146,7 +146,7 @@ main.container {
   margin: 8px;
 }
 
-@media only screen and (max-device-width: 480px) {
+@media (max-device-width: 480px) {
   main.container {
     width: 100%;
   }
