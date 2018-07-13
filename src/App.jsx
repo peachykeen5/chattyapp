@@ -82,7 +82,7 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <img src="./images/chatty-icon.png" />
-          <a href="/" className="navbar-brand">Chatty</a>
+          <a href="/" className="navbar-brand">ChattyApp</a>
           <span className="usercount">{this.state.usercount} users online.</span>
 
         </nav>
