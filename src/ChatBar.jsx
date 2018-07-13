@@ -50,8 +50,8 @@ export default class ChatBar extends Component {
     event.preventDefault();
     if (event.keyCode === 13) {
       this.props.newUser(this.state.username)
-      }
     }
+  }
 
   render() {
     return (
