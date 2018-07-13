@@ -17,7 +17,6 @@ export default class MessageList extends Component {
   render () {
     const color = this.props.color
     const messages = this.props.messages.map((message) => {
-      console.log("message:", message)
       switch(message.type) {
         case 'incomingNotification':
         return <Notification message={message} key={message.id}/>;

@@ -15,7 +15,7 @@ body {
 }
 
 main.container {
-  max-width: 700px;
+  width: 700px;
   margin: 0 auto;
   height: fit-content;
   margin-top: -10px;
@@ -52,13 +52,21 @@ main.container {
   flex: 2;
 }
 
+.triangle-left {
+  width: 0;
+  height: 0;
+  margin-top: 8px;
+  border-top: 8px solid transparent;
+  border-right: 10px solid white;
+  border-bottom: 8px solid transparent;
+  margin-right: -2px;
+  z-index: 2;
+}
+
 .message {
   display: flex;
   margin: 5px;
-  border: 1px solid lightgrey;
-  border-radius: 5px;
-  box-shadow: 2px 2px 5px #a2a2a2;
-  background-color: white;
+
 
 }
 
@@ -77,12 +85,22 @@ main.container {
 .message-content {
   flex: 8;
   padding: 10px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #a2a2a2;
+  background-color: white;
 }
+
 
 .message-username {
   flex: 2;
   font-weight: 700;
   line-height: 2.5;
+}
+
+.notification {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .notification-content {
@@ -126,4 +144,41 @@ main.container {
   float: right;
   line-height: 2.5;
   margin: 8px;
+}
+
+@media only screen and (max-device-width: 480px) {
+  main.container {
+    width: 100%;
+  }
+  body {
+    background-color: white;
+  }
+  .navbar-brand {
+    font-size: xx-large;
+
+  }
+  .message {
+    margin: 10px;
+    border-top: 1px dashed darkgrey;
+  }
+  .message-content {
+    border: none;
+    box-shadow: none;
+    font-size: xx-large;
+  }
+  .message-username {
+    font-size: xx-large;
+  }
+  .chatbar {
+    height: 10rem;
+  }
+  .chatbar-message {
+    height: 80%;
+    width: 100%;
+    font-size: x-large;
+  }
+  .notification-content {
+    font-size: large;
+  }
+
 }
