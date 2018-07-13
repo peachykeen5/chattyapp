@@ -18,6 +18,9 @@ class App extends Component {
   }
 
   newMessage(content) {
+    if(!this.state.currentUser.name) {
+      this.state.currentUser.name="Anonymous"
+    }
     const newMessage = JSON.stringify({
       username: this.state.currentUser.name,
       content: content,
