@@ -39,7 +39,7 @@ This project integrates a WebSocket server with a basic single page application 
 
 ### Getting Started
 
-* Install all dependencies (using the npm install command).
-* Run the development web server using the `npm start` command in the react-simple-boilerplate folder.
+* Install all dependencies (using the npm install command) in both the main folder and chatty-server folder.
+* Run the development web server using the `npm start` command in the main folder.
 * Run the web socket server using `npm start` command in the chatty_server folder.
 * Go to http://localhost:3000/ in your web browser
