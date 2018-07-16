@@ -35,3 +35,10 @@ This project integrates a WebSocket server with a basic single page application 
 * Webpack
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+
+
+### Getting Started
+
+* Install all dependencies (using the npm install command).
+* Run the development web server using the `npm start` command in the react-simple-boilerplate folder.
+* Run the web socket server using `npm start` command in the chatty_server folder.
