@@ -17,6 +17,7 @@ class App extends Component {
     this.socket = new WebSocket("ws://localhost:3001");
   }
 
+  // new message entered and sent to the web socket server
   newMessage(content) {
     if(!this.state.currentUser.name) {
       this.state.currentUser.name="Anonymous"
@@ -29,6 +30,7 @@ class App extends Component {
     this.socket.send(newMessage)
   }
 
+  // username updated and sent to web socket server
   newUser(user) {
     if (!this.state.currentUser.name) {
       this.state.currentUser.name = "Anonymous"
@@ -52,6 +54,7 @@ class App extends Component {
       console.log("server open")
     }
 
+    // incoming data from web socket server
     this.socket.onmessage = (event) => {
       let data = JSON.parse(event.data)
       if (data.type === "incomingNotification") {
